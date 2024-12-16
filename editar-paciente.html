@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Pacientes</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.title = `Bienvenido, ${nombre_usuario}!`; // Cambia el título
+        });
+    </script>
+</head>
+<body>
+    <h1>Editar Paciente</h1>
+    <link rel="stylesheet" href="styles.css">
+</body>   
+<body>
+    <!-- Incluir barra de navegación desde navbar.html -->
+    <div id="navbar"></div>
+
+    <script>
+        // Insertar el contenido de navbar.html en el elemento con id "navbar"
+        fetch('/navbar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('navbar').innerHTML = data;
+            })
+            .catch(error => console.error('Error cargando el navbar:', error));
+
+            // Solicitar el tipo de usuario y ajustar el menú en función de este
+         fetch('/tipo-usuario')
+            .then(response => response.json())
+            .then(data => {
+                const menu = document.getElementById('menu');
+                const tipoUsuario = data.tipo_usuario;
+
+            // Agregar opciones de menú según el tipo de usuario
+            if (tipoUsuario === 'Headcoach') {
+                menu.innerHTML += '<li><a href="/ver-entrenadores">Entrenadores</a></li>';
+                menu.innerHTML += '<li><a href="/ver-pacientes">Pacientes</a></li>';
+   
+            }   else if (tipoUsuario === 'Coach') {
+                menu.innerHTML += '<li><a href="/ver-mis-pacientes">Ver mis Pacientes</a></li>';
+            }
+            // Opción de cerrar sesión para todos los tipos de usuario
+            menu.innerHTML += '<li><a href="/logout">Cerrar Sesión</a></li>';
+        })
+        .catch(error => console.error('Error obteniendo el tipo de usuario:', error));
+    </script>
+
+
+</body>
+<h2>Ingresa el ID del paciente y edite los datos</h2>
+<form action="/editar-paciente" method="POST">
+    <label for="id"> Id del paciente:</label>
+    <input type="number" id="id" name="id" required>
+
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" name="apellido" required>
+    
+    <label for="correo">Correo Electronico:</label>
+    <input type="text" id="correo" name="correo" required>
+
+    <label for="telefono">Numero de telefono:</label>
+    <input type="text" id="telefono" name="telefono" required> 
+    
+    <label for="mensualidad">Pago de Mensualidad</label>
+    <input type="number" id="mensualidad" name="mensualidad" required>
+
+    <!-- <label for="coach_id"> ID del Entrenador Asignado</label>
+    <input type="number" id="coach_id" name="coach_id"> -->
+
+    <button type="submit">Enviar</button>
+</form>
+
+<button onclick="window.location.href='/aceptar'">Terminar y Guardar</button>
+
+<button onclick="window.location.href='/cancelar'">Cancelar</button>
+
+</html>

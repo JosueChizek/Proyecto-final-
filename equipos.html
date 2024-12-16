@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipo de entrenamiento</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Cargar Equipo de entrenamiento desde Excel</h1>
+
+  <div id="navbar"></div>
+
+  <script>
+    // Insertar el contenido de navbar.html en el elemento con id "navbar"
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+
+            menu.innerHTML += '<li><a href="/ver-entrenadores">Entrenadores</a></li>';
+                menu.innerHTML += '<li><a href="/ver-pacientes">Pacientes</a></li>';
+                menu.innerHTML += '<li><a href="/busqueda.html">Buscar Paciente</a></li>';
+            
+        })
+        .catch(error => console.error('Error cargando el navbar:', error));
+</script>
+<link rel="stylesheet" href="styles.css">
+
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <label for="file-search">Selecciona un archivo formato .xlsx</label>
+    <input type="file" name="excelFile" accept=".xlsx" />
+    <button type="submit">Subir Archivo</button>
+  </form>
+  <button onclick="window.location.href='/download'">Descargar Equipos</button>
+  <button onclick="window.location.href='/download-pdf'">Descargar Equipos en PDF</button>
+
+  <script src="navbar.html"></script>
+</body>
+</html>

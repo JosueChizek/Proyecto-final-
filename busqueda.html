@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Búsqueda en Tiempo Real</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="navbar"></div>
+  <h1>Búsqueda en Tiempo Real</h1>
+  <body>
+  <script>
+    // Insertar el contenido de navbar.html en el elemento con id "navbar"
+    fetch('/navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+
+            menu.innerHTML += '<li><a href="/ver-entrenadores">Entrenadores</a></li>';
+            menu.innerHTML += '<li><a href="/ver-pacientes">Pacientes</a></li>';
+            menu.innerHTML += '<li><a href="/equipos.html">Subir equipo</a></li>';
+            mmenu.innerHTML += '<li><a href="/logout">Cerrar Sesión</a></li>';
+        })
+        .catch(error => console.error('Error cargando el navbar:', error));
+</script>
+<link rel="stylesheet" href="styles.css">
+  </body>
+<body>
+  <input type="text" id="search" placeholder="Nombre del Paciente..." />
+  <ul id="results"></ul>
+</body>
+
+  <script src="navbar.html"></script>
+  <script>
+    document.getElementById('search').addEventListener('keyup', function() {
+      const query = this.value;
+      fetch(`/buscar?query=${query}`)
+        .then(res => res.json())
+        .then(data => {
+          const results = document.getElementById('results');
+          results.innerHTML = '';
+          data.forEach(paciente => {
+    const li = document.createElement('li');
+    li.textContent = `ID:${paciente.id} - Nombre:${paciente.nombre_paciente} ${paciente.apellido_paciente} - Correo:${paciente.correo_paciente} - Telefono:${paciente.telefono_paciente} - Mesualidad:${paciente.mensualidad_paciente} - Entrenador:${paciente.Entrenador}`;
+            results.appendChild(li);
+          });
+        });
+    });
+  </script>
+</body>
+</html>
+
+
+
